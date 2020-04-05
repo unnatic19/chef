@@ -54,14 +54,15 @@
 					============================================= -->
 					<div id="logo">
 						
-						<a href="about-us.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+                        <a href="about-us.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+                        
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
 					============================================= -->
 					<nav id="primary-menu">
-						<ul>
-							<li><a href="signup.html"><div>SIGN UP</div></a></li>
+                        <ul>
+							<li><a href="login-register-2.html"><div>LOG IN </div></a></li>
 						</ul>
 
 					</nav><!-- #primary-menu end -->
@@ -94,46 +95,59 @@
 					<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
 
 						<ul class="tab-nav tab-nav2 center clearfix">
-							<li class="inline-block"><a href="#tab-login">Login</a></li>
 							
+							<li class="inline-block"><a href="#tab-register">Register</a></li>
 						</ul>
 
 						<div class="tab-container">
 
-							<div class="tab-content clearfix" id="tab-login">
+							
+
+							<div class="tab-content clearfix" id="tab-register">
 								<div class="card nobottommargin">
 									<div class="card-body" style="padding: 40px;">
-										<form  id="app" @submit="checkForm" action="menu.html" method="post" novalidate="true">
+										<h3>Register for an Account</h3>
 
-											<h3>Login to your Account</h3>
+										<form id="app" @submit="checkRegister" action="menu.html" method="post" novalidate="true" >
 											<p v-if="errors.length">
 												<b>Please correct the following error(s):</b>
 												<ul>
 												  <li v-for="error in errors">{{ error }}</li>
 												</ul>
 											  </p>
-											  
 											<div class="col_full">
-												<label for="login-form-username" >Username:</label>
+												<label for="register-form-name">Name:</label>
+												<input type="text" name="name" id="name" v-model="name" class="form-control" />
+												
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-email">Email Address:</label>
+												<input type="email" name="email" id="email" v-model="email" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-username">Choose a Username:</label>
 												<input type="text" name="username" id="username" v-model="username" class="form-control" />
 											</div>
 
 											<div class="col_full">
-												<label for="login-form-password">Password:</label>
-												<input type="password" name="password" id="password" v-model="password" class="form-control" />
+												<label for="register-form-phone">Phone:</label>
+												<input type="number" name="phone" id="phone" v-model="phone" class="form-control" />
 											</div>
 
+											<div class="col_full">
+												<label for="register-form-password">Choose Password:</label>
+												<input type="password" name="password" id="password" v-model="password" class="form-control" />
+											</div>
 											<div class="col_full nobottommargin">
-												<button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-												
+												<button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
 											</div>
 
 										</form>
 									</div>
 								</div>
 							</div>
-
-							
 
 						</div>
 
@@ -150,25 +164,46 @@
 		  data:{
 			errors:[],
 			username:null,
-			password:null
+			password:null,
+			email:null,
+			name:null,
+			phone:null
 		  },
 		  methods:{
-			checkForm:function(e) {
+			
+			checkRegister:function(e) {
+			console.log("succ");
 			  this.errors = [];
-			  
-			  if(!this.username) this.errors.push("Name required.");
+			  if(!this.name) this.errors.push("Name required.");
 			  if(!this.password) {
 				this.errors.push("Password required.");
-			  } else if(!this.validPassword(this.password)) {
+			  }
+			  if(!this.email) {
+				this.errors.push("Email required.");
+			  }
+			  if(!this.username) {
+				this.errors.push("Username required.");
+			  }
+			  if(!this.phone) {
+				this.errors.push("Phone required.");
+			  }
+			  else if(!this.validPassword(this.password)) {
 				this.errors.push("Valid Password required.");        
+			  }
+			  else if(!this.validEmail(this.email)) {
+				this.errors.push("Valid Email required.");        
 			  }
 			  if(!this.errors.length) return true;
 			  e.preventDefault();
 			},
-			validPassword:function(password) {
+            validPassword:function(password) {
 			  var re = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 			return re.test(password);
-			}
+			},
+			validEmail:function(email) {
+      		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    		return re.test(email);
+    		}
 		  }
 		})
 			</script>

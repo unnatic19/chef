@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Cookie|Open+Sans:400,600,700,800,900|Poppins:300,400,500,600,700|Playfair+Display:400,400i,700,700i,900" rel="stylesheet">
+	<link rel="stylesheet" href="1css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="1css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="1css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="1css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="1css/magnific-popup.css" type="text/css" />
+	<link rel="stylesheet" href="1css/swiper.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="et-line.css" type="text/css" />
+
+	<!-- restaurant Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="restaurant.css" type="text/css" />
+	<link rel="stylesheet" href="css/fonts.css" type="text/css" />
+	<!-- / -->
+
+	<link rel="stylesheet" href="1css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+
+	<link rel="stylesheet" href="1css/colors.php?color=e7272d" type="text/css" />
+
+	<!-- Document Title
+	============================================= -->
+	<title>Blog | Canvas</title>
+
+    <form id="app" @submit="checkForm" action="/" method="post" novalidate="true">
+  
+        <p v-if="errors.length">
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li v-for="error in errors">{{ error }}</li>
+          </ul>
+        </p>
+        
+        <p>
+          <label for="name">Name<label>
+          <input type="text" name="name" id="name" v-model="name">
+        </p>
+      
+        <p>
+          <label for="email">Email<label>
+          <input type="email" name="email" id="email" v-model="email">
+        </p>
+      
+        <p>
+          <label for="movie">Favorite Movie<label>
+          <select name="movie" id="movie" v-model="movie">
+            <option>Star Wars</option>
+            <option>Vanilla Sky</option>
+            <option>Atomic Blonde</option>
+          </select>
+        </p>
+      
+        <p>
+          <input type="submit" value="Submit">  
+        </p>
+      
+      </form>
+      <form id="app" @submit="checkForm" action="/" method="post" novalidate="true">
+  
+        <p v-if="errors.length">
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li v-for="error in errors">{{ error }}</li>
+          </ul>
+        </p>
+        
+        <p>
+          <label for="name">Name<label>
+          <input type="text" name="name" id="name" v-model="name">
+        </p>
+      
+        <p>
+          <label for="email">Email<label>
+          <input type="email" name="email" id="email" v-model="email">
+        </p>
+      
+        <p>
+          <label for="movie">Favorite Movie<label>
+          <select name="movie" id="movie" v-model="movie">
+            <option>Star Wars</option>
+            <option>Vanilla Sky</option>
+            <option>Atomic Blonde</option>
+          </select>
+        </p>
+      
+        <p>
+          <input type="submit" value="Submit">  
+        </p>
+      
+      </form>
+      
+</head>
+<style>
+input,select {
+  margin-left: 10px;
+}
+
+</style>
+<body class="stretched sticky-footer" data-loader-html="<span class='pizza'> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> </span>">
+
+	<!-- Document Wrapper
+	============================================= -->
+	
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+	<script>
+	const app = new Vue({
+  el:'#app',
+  data:{
+    errors:[],
+    name:null,
+    email:null,
+    movie:null
+  },
+  methods:{
+    checkForm:function(e) {
+      this.errors = [];
+      if(!this.name) this.errors.push("Name required.");
+      if(!this.email) {
+        this.errors.push("Email required.");
+      } else if(!this.validEmail(this.email)) {
+        this.errors.push("Valid email required.");        
+      }
+      if(!this.errors.length) return true;
+      e.preventDefault();
+    },
+    validEmail:function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+    }
+  }
+})
+	</script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>	
+</body>
+</html>
