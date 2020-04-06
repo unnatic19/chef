@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="1css/animate.css" type="text/css" />
 	<link rel="stylesheet" href="1css/magnific-popup.css" type="text/css" />
 	<link rel="stylesheet" href="1css/swiper.css" type="text/css" />
-
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="et-line.css" type="text/css" />
 
 	<!-- restaurant Demo Specific Stylesheet -->
@@ -203,7 +203,20 @@
 			validEmail:function(email) {
       		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     		return re.test(email);
-    		}
+    		},
+			mounted () {
+		axios({
+  	method: 'post',
+  	url: '#',
+  	data: {
+    	username:username,
+			password:password,
+			email:email,
+			name:name,
+			phone:phone
+  }
+});
+  }
 		  }
 		})
 			</script>

@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="1css/animate.css" type="text/css" />
 	<link rel="stylesheet" href="1css/magnific-popup.css" type="text/css" />
 	<link rel="stylesheet" href="1css/swiper.css" type="text/css" />
-
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="et-line.css" type="text/css" />
 
 	<!-- restaurant Demo Specific Stylesheet -->
@@ -145,7 +145,7 @@
 
 		</section><!-- #content end -->
 		<script>
-			const app = new Vue({
+		const app = new Vue({
 		  el:'#app',
 		  data:{
 			errors:[],
@@ -168,9 +168,20 @@
 			validPassword:function(password) {
 			  var re = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 			return re.test(password);
-			}
+			},
+			mounted () {
+		axios({
+  	method: 'post',
+  	url: '#',
+  	data: {
+    	username: username,
+    	password: password
+  }
+});
+  }
 		  }
 		})
+		
 			</script>
 		
 

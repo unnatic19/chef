@@ -148,7 +148,7 @@
 							<div class="ipost clearfix">
 								<div class="entry">
 									<div class="entry-image nobottommargin">
-										<a href="images/blogs/4.jpg" data-lightbox="image"><img class="image_fade" src="images/blogs/4.jpg" alt="Image 1"></a>
+										<a  data-lightbox="image"><img class="image_fade" src="https://www.simplyrecipes.com/wp-content/uploads/2010/04/eggs-benedict-horiz-a-1600-768x540.jpg" alt="Image 1"></a>
 									</div>
 									<div class="entry-title">
 										<ul class="entry-meta clearfix">
@@ -179,7 +179,7 @@
 								</div>
 							</div>
 						</div>
-
+						<div>{{info}}</div>
 						<div class="col-lg-4 col-sm-6 bottommargin-sm">
 							<div class="ipost clearfix">
 								<div class="entry">
@@ -236,7 +236,12 @@
   el:'#app',
   data: {
     cats:[],
-    newCat:null
+    newCat:null,
+	id:null,
+	recipe_name:null,
+	recipe_img:null,
+	recipe_url:null,
+	info:null
   },
   mounted() {
     
@@ -263,7 +268,21 @@
     saveCats() {
       let parsed = JSON.stringify(this.cats);
       localStorage.setItem('cats', parsed);
-    }
+    },
+	mounted () {
+	axios({
+  method: 'post',
+  url: '#',
+  data: {
+    Ingredients:cats
+  }
+});
+  },
+  mounted () {
+    axios
+      .get('#')
+      .then(response => (this.info = response))
+  }
   }
 })
 	</script>
