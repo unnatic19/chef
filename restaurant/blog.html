@@ -110,7 +110,7 @@
 				<div class="container clearfix">
                         <div class="card nobottommargin">
                                 <div class="card-body" style="padding: 40px;">
-                                    <form  id="app" @submit="checkForm"  novalidate="true">
+                                    <form  id="app" @submit="checkForm" novalidate="true">
 
                                         <h3>MakeFood</h3>
                                         <p v-if="errors.length">
@@ -125,6 +125,8 @@
                                             <input type="text" name="Ingredients" id="Ingredients" v-model="Ingredients" class="form-control" />
                                         </div>
 										<div >
+                                          
+                                            
 											  </div>
                                         
                                         <div class="col_full nobottommargin">
@@ -154,7 +156,7 @@
                                         <div class="ipost clearfix">
                                             <div class="entry">
                                                 <div class="entry-image nobottommargin">
-                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg2" alt="Image 1"></a>
+                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg2" alt="Image 2"></a>
                                                 </div>
                                                 <div class="entry-title">
                                                    
@@ -168,7 +170,7 @@
                                             <div class="ipost clearfix">
                                                 <div class="entry">
                                                     <div class="entry-image nobottommargin">
-                                                        <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg3"alt="Image 1"></a>
+                                                        <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg3"alt="Image 3"></a>
                                                     </div>
                                                     <div class="entry-title">
                                                         
@@ -182,7 +184,7 @@
                                                 <div class="ipost clearfix">
                                                     <div class="entry">
                                                         <div class="entry-image nobottommargin">
-                                                            <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg4"alt="Image 1"></a>
+                                                            <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg4"alt="Image 4"></a>
                                                         </div>
                                                         <div class="entry-title">
                                                            
@@ -196,7 +198,7 @@
                                                     <div class="ipost clearfix">
                                                         <div class="entry">
                                                             <div class="entry-image nobottommargin">
-                                                                <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg5"alt="Image 1"></a>
+                                                                <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg5"alt="Image 5"></a>
                                                             </div>
                                                             <div class="entry-title">
                                                                 
@@ -211,7 +213,7 @@
                                                         <div class="ipost clearfix">
                                                             <div class="entry">
                                                                 <div class="entry-image nobottommargin">
-                                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg6" alt="Image 1"></a>
+                                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg6" alt="Image 6"></a>
                                                                 </div>
                                                                 <div class="entry-title">
                                                                    
@@ -221,6 +223,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                   
                     </div>
                 </div>
             </div>
@@ -288,7 +291,7 @@
 	if(response.status == 200){
 	
 		//this. suggestions = response.data;
-        const json = response.data;
+    const json = response.data;
       this.suggestions .push (json.Top_recommendations);
       this.disheName1 = suggestions[0][0][1];
       this.disheName2 = suggestions[0][1][1];
@@ -308,6 +311,7 @@
       this.disheImg4 = suggestions[0][3][3];
       this.disheImg5 = suggestions[0][4][3];
       this.disheImg6 = suggestions[0][5][3];
+      this.suggestions=[];
 
 
         
