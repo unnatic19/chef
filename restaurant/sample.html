@@ -35,13 +35,31 @@
 	============================================= -->
 	<title>Blog | Canvas</title>
 
-  <div id="app">
-      {{ info }}
-    </div>
-      
 </head>
 <body class="stretched sticky-footer" data-loader-html="<span class='pizza'> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> </span>">
+<script>
 
+axios.post(' http://0.0.0.0:3000/signup', {
+	"Name":"unnati",
+	"Email":"unnati@123",
+	"Username":"unnati",
+	"Phone":"123",
+	"Password":"unnati123"
+	
+    }, {
+      headers: {
+        'Access-Control-Allow-Origin':'*'  ,                                                                                                                                                                                                   
+  'Access-Control-Allow-Credentials': 'true' 
+	  }                                                                                                                                                                                                                         
+
+})
+.then((response) => {
+  console.log(response);
+}, (error) => {
+  console.log(error);
+});
+
+</script>
 	<!-- Document Wrapper
 	============================================= -->
 	
@@ -49,22 +67,8 @@
 	============================================= -->
 	<script src="js/jquery.js"></script>
 	<script src="js/plugins.js"></script>
-	<script>
 
-new Vue({
-  el: '#app',
-  data () {
-    return {
-      info: null
-    }
-  },
-  mounted () {
-    axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response))
-  }
-})
-  </script>
+
 
 	<!-- Footer Scripts
 	============================================= -->

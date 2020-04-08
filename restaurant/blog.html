@@ -15,14 +15,14 @@
 	<link rel="stylesheet" href="1css/animate.css" type="text/css" />
 	<link rel="stylesheet" href="1css/magnific-popup.css" type="text/css" />
 	<link rel="stylesheet" href="1css/swiper.css" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" href="et-line.css" type="text/css" />
 
 	<!-- restaurant Demo Specific Stylesheet -->
 	<link rel="stylesheet" href="restaurant.css" type="text/css" />
 	<link rel="stylesheet" href="css/fonts.css" type="text/css" />
 	<!-- / -->
-
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<link rel="stylesheet" href="1css/responsive.css" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lt IE 9]>
@@ -30,22 +30,11 @@
 	<![endif]-->
 
 	<link rel="stylesheet" href="1css/colors.php?color=e7272d" type="text/css" />
-
-	<!-- Document Title
-	============================================= -->
-	<title>Blog | Canvas</title>
-
+	<title>MakeFood</title>
 
 </head>
-<style>
 
-.cat {
-  width: 100px;
-  display: inline-block;
- 
-}
-</style>
-<body class="stretched sticky-footer" data-loader-html="<span class='pizza'> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> <span class='slice'></span> </span>">
+<body class="stretched">
 
 	<!-- Document Wrapper
 	============================================= -->
@@ -53,9 +42,9 @@
 
 		<!-- Header
 		============================================= -->
-		<header id="header" class="static-sticky transparent-header split-menu clearfix">
+		<header id="header" class="full-header">
 
-			<div id="header-wrap" style="background-image: url('images/sketch-header.png');">
+			<div id="header-wrap">
 
 				<div class="container clearfix">
 
@@ -64,23 +53,26 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="menu.html" class="retina-logo"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+						
+						<a href="about-us.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
 					============================================= -->
 					<nav id="primary-menu" class="with-arrows clearfix">
 
-						<ul>
-							<li><a href="about-us.html"><div>About</div></a></li>
-							<li><a href="menu.html"><div>Home</div></a></li>
-						</ul>
-
-						<ul>
-							<li><a href="login-register-2.html"><div>LOG OUT</div></a></li>
-						</ul>
-
-					</nav><!-- #primary-menu end -->
+							<ul>
+							
+								<li><a href="about-us.html"><div>About</div></a></li>
+								<li><a href="menu.html"><div>HOME</div></a></li>
+							</ul>
+	
+							<ul>
+								
+								<li><a href="login-register-2.html"><div>SignOut</div></a></li>
+							</ul>
+	
+						</nav><!-- #primary-menu end -->
 
 				</div>
 
@@ -90,7 +82,18 @@
 
 		<!-- Page Title
 		============================================= -->
-		<section id="page-title" class="page-title-parallax page-title-center border-bottom" style="background-image: url('images/sections/6.jpg'); background-size: 100% auto;" data-center="background-position:100% 100px;" data-top-bottom="background-position:100% -200px;">
+		<section id="page-title">
+
+			<div class="container clearfix">
+				<h1>MakeFood</h1>
+				
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+        <section id="page-title" class="page-title-parallax page-title-center border-bottom" style="background-image: url('images/sections/6.jpg'); background-size: 100% auto;" data-center="background-position:100% 100px;" data-top-bottom="background-position:100% -200px;">
 
 			<div class="container clearfix">
 				<h1 class="font-secondary capitalize ls0" style="font-size: 62px;">Select the Ingridents</h1>
@@ -101,194 +104,240 @@
 		
 		<!-- Content
 		============================================= -->
-		<section id="content" style="overflow: visible;">
+		<section  id="app" style="overflow: visible;">
 
 			<div class="content-wrap nobottompadding">
 				<div class="container clearfix">
+                        <div class="card nobottommargin">
+                                <div class="card-body" style="padding: 40px;">
+                                    <form  id="app" @submit="checkForm"  novalidate="true">
 
-					<div class="row clearfix">
-
-						<div class="col-lg-4 col-sm-6 bottommargin-sm">
-							
-						</div>
-						<div id="app">
-							
-							<div v-for="(cat,n) in cats">
-							  <p>
-							  <span class="cat">{{cat}}</span> <button @click="removeCat(n)">Remove</button>
-							  </p>
-							</div>
-							
-							<p>
-							  <input v-model="newCat"> 
-							  <button @click="addCat">Add Ingredients</button>
-							</p>
-							
-						  </div>
-						
-
-						<div class="col-lg-4 col-sm-6 bottommargin-sm">
-							<div class="ipost clearfix">
-								<div class="entry">
-									<div class="entry-image nobottommargin">
+                                        <h3>MakeFood</h3>
+                                        <p v-if="errors.length">
+                                            
+                                            <ul>
+                                              <li v-for="error in errors">{{ error }}</li>
+                                            </ul>
+                                          </p>
+                                          
+                                        <div class="col_full">
+                                            <label for="login-form-username" >Ingredients</label>
+                                            <input type="text" name="Ingredients" id="Ingredients" v-model="Ingredients" class="form-control" />
+                                        </div>
+										<div >
+											  </div>
+                                        
+                                        <div class="col_full nobottommargin">
+                                            <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Submit</button>
+                                            
+                                        </div>
 										
-									</div>
-									<div >
-										<ul>
-											
-										</ul>
-										<div class="clear"></div>
-										<h2 class="nobottommargin"></h2>
-									</div>
-								</div>
-							</div>
-						</div>
+                                    </form>
+                                </div>
+                            </div>
+					<div class="row clearfix">
+                        
+                            <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                    <div class="ipost clearfix">
+                                        <div class="entry">
+                                            <div class="entry-image nobottommargin">
+                                                <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg1" alt="Image 1"></a>
+                                            </div>
+                                            <div class="entry-title">
+                                                <div class="clear"></div>
+                                                <h2 class="nobottommargin"><a v-bind:href="disheUrl1">{{disheName1}}</a></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                        <div class="ipost clearfix">
+                                            <div class="entry">
+                                                <div class="entry-image nobottommargin">
+                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg2" alt="Image 1"></a>
+                                                </div>
+                                                <div class="entry-title">
+                                                   
+                                                    <div class="clear"></div>
+                                                    <h2 class="nobottommargin"><a v-bind:href="disheUrl2">{{disheName2}}</a></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                            <div class="ipost clearfix">
+                                                <div class="entry">
+                                                    <div class="entry-image nobottommargin">
+                                                        <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg3"alt="Image 1"></a>
+                                                    </div>
+                                                    <div class="entry-title">
+                                                        
+                                                        <div class="clear"></div>
+                                                        <h2 class="nobottommargin"><a v-bind:href="disheUrl3">{{disheName3}}</a></h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                                <div class="ipost clearfix">
+                                                    <div class="entry">
+                                                        <div class="entry-image nobottommargin">
+                                                            <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg4"alt="Image 1"></a>
+                                                        </div>
+                                                        <div class="entry-title">
+                                                           
+                                                            <div class="clear"></div>
+                                                            <h2 class="nobottommargin"><a v-bind:href="disheUrl4">{{disheName4}}</a></h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                                    <div class="ipost clearfix">
+                                                        <div class="entry">
+                                                            <div class="entry-image nobottommargin">
+                                                                <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg5"alt="Image 1"></a>
+                                                            </div>
+                                                            <div class="entry-title">
+                                                                
+                                                                <div class="clear"></div>
+                                                                <h2 class="nobottommargin"><a v-bind:href="disheUrl5">{{disheName5}}</a></h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+												</div>
+												
+                                                <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                                        <div class="ipost clearfix">
+                                                            <div class="entry">
+                                                                <div class="entry-image nobottommargin">
+                                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg6" alt="Image 1"></a>
+                                                                </div>
+                                                                <div class="entry-title">
+                                                                   
+                                                                    <div class="clear"></div>
+                                                                    <h2 class="nobottommargin"><a v-bind:href="disheUrl6">{{disheName6}}</a></h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    </div>
+                </div>
+            </div>
 
-						<div class="col-lg-4 col-sm-6 bottommargin-sm">
-							<div class="ipost clearfix">
-								<div class="entry">
-									<div class="entry-image nobottommargin">
-										<a  data-lightbox="image"><img class="image_fade" src="https://www.simplyrecipes.com/wp-content/uploads/2010/04/eggs-benedict-horiz-a-1600-768x540.jpg" alt="Image 1"></a>
-									</div>
-									<div class="entry-title">
-										<ul class="entry-meta clearfix">
-											<li><a href="#">08th Apr 2017</a></li>
-											<li><a href="#">Video</a></li>
-										</ul>
-										<div class="clear"></div>
-										<h2 class="nobottommargin"><a href="#">Make Ahead Super Green Vegan Quinoa Sandwich.</a></h2>
-									</div>
-								</div>
-							</div>
-						</div>
+				
 
-						<div class="col-lg-4 col-sm-6 bottommargin-sm">
-							<div class="ipost clearfix">
-								<div class="entry">
-									<div class="entry-image nobottommargin">
-										<a href="images/blogs/5.jpg" data-lightbox="image"><img class="image_fade" src="images/blogs/5.jpg" alt="Image 2"></a>
-									</div>
-									<div class="entry-title">
-										<ul class="entry-meta clearfix">
-											<li><a href="#">21th Mar 2017</a></li>
-											<li><a href="#">Book</a></li>
-										</ul>
-										<div class="clear"></div>
-										<h2 class="nobottommargin"><a href="#">We Delivered Heart Shape Cornbread Waffles.</a></h2>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div>{{info}}</div>
-						<div class="col-lg-4 col-sm-6 bottommargin-sm">
-							<div class="ipost clearfix">
-								<div class="entry">
-									<div class="entry-image nobottommargin">
-										<a href="images/blogs/6.jpg" data-lightbox="image"><img class="image_fade" src="images/blogs/6.jpg" alt="Image 3"></a>
-									</div>
-									<div class="entry-title">
-										<ul class="entry-meta clearfix">
-											<li><a href="#">10th Feb 2016</a></li>
-											<li><a href="#">Recipe</a></li>
-										</ul>
-										<div class="clear"></div>
-										<h2 class="nobottommargin"><a href="#">Top Delicious Recipes from world's Best Chefs.</a></h2>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-				<div class="section mt-3 border-top nobg py-5">
-					<div class="container clearfix">
-						<div class="row align-items-center">
-							<div class="col-sm-6 mr-auto">
-								<h4 class="mb-0 d-flex justify-content-center justify-content-sm-start"><small class="text-muted">Showing Page: <a href="#">1</a> of 8 Pages</small></h4>
-							</div>
-							<div class="col-sm-6">
-								<ul class="pagination justify-content-center justify-content-sm-end mt-3 mt-sm-0 mb-0">
-									<li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<div style="position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3; background: url('images/sketch-header.png') repeat center bottom; background-size: auto 100%; height: 40px; margin-bottom: -10px;"></div>
+			
 
 		</section><!-- #content end -->
+		<script>
+		const app = new Vue({
+		  el:'#app',
+		  data:{
+			errors:[],
+			Ingredients:null,
+			suggestions:[],
+			disheName1:null,
+            disheName2:null,
+            disheName3:null,
+            disheName4:null,
+            disheName5:null,
+            disheName6:null,
+            disheUrl1:null,
+            disheUrl2:null,
+            disheUrl3:null,
+            disheUrl4:null,
+            disheUrl5:null,
+            disheUrl6:null,
+            disheImg1:null,
+            disheImg2:null,
+            disheImg3:null,
+            disheImg4:null,
+            disheImg5:null,
+            disheImg6:null,
+            
+			result:[]
+		  },
+		  methods:{
+			checkForm:function(e) {
+			  this.errors = [];
+			  
+			  if(!this.Ingredients) this.errors.push("Ingredients required.");
+			        
+			  
+			  if(!this.errors.length) {
+				this.postCall(this.Ingredients,this.suggestions)
+			  };
+			  e.preventDefault();
+			},
+			postCall:function(Ingredients,suggestions){
+				axios.post('http://0.0.0.0:3000/ingredients', {
+	
+	
+	"Ingredients":Ingredients
+	
+	
+    }, {
+      headers: {
+        'Access-Control-Allow-Origin':'*'  ,                                                                                                                                                                                                   
+  'Access-Control-Allow-Credentials': 'true' 
+	  }     
+
+})
+.then((response) => {
+	if(response.status == 200){
+	
+		//this. suggestions = response.data;
+        const json = response.data;
+      this.suggestions .push (json.Top_recommendations);
+      this.disheName1 = suggestions[0][0][1];
+      this.disheName2 = suggestions[0][1][1];
+      this.disheName3 = suggestions[0][2][1];
+      this.disheName4 = suggestions[0][3][1];
+      this.disheName5 = suggestions[0][4][1];
+      this.disheName6 = suggestions[0][5][1];
+      this.disheUrl1 = suggestions[0][0][2];
+      this.disheUrl2 = suggestions[0][1][2];
+      this.disheUrl3 = suggestions[0][2][2];
+      this.disheUrl4 = suggestions[0][3][2];
+      this.disheUrl5 = suggestions[0][4][2];
+      this.disheUrl6 = suggestions[0][5][2];
+      this.disheImg1 = suggestions[0][0][3];
+      this.disheImg2 = suggestions[0][1][3];
+      this.disheImg3 = suggestions[0][2][3];
+      this.disheImg4 = suggestions[0][3][3];
+      this.disheImg5 = suggestions[0][4][3];
+      this.disheImg6 = suggestions[0][5][3];
+
+
+        
+
+		
+		
+		
+	}
+	
+
+  console.log(response);
+}, (error) => {
+  console.log(error);
+});
+			}
+
+  }
+		  })
+		
+			</script>
+		
 
 	<!-- External JavaScripts
 	============================================= -->
 	<script src="js/jquery.js"></script>
 	<script src="js/plugins.js"></script>
-	<script>
-	const app = new Vue({
-  el:'#app',
-  data: {
-    cats:[],
-    newCat:null,
-	id:null,
-	recipe_name:null,
-	recipe_img:null,
-	recipe_url:null,
-	info:null
-  },
-  mounted() {
-    
-    if(localStorage.getItem('cats')) {
-      try {
-        this.cats = JSON.parse(localStorage.getItem('cats'));
-      } catch(e) {
-        localStorage.removeItem('cats');
-      }
-    }
-  },
-  methods: {
-    addCat() {
-      // ensure they actually typed something
-      if(!this.newCat) return;
-      this.cats.push(this.newCat);
-      this.newCat = '';
-      this.saveCats();
-    },
-    removeCat(x) {
-      this.cats.splice(x,1);
-      this.saveCats();
-    },
-    saveCats() {
-      let parsed = JSON.stringify(this.cats);
-      localStorage.setItem('cats', parsed);
-    },
-	mounted () {
-	axios({
-  method: 'post',
-  url: '#',
-  data: {
-    Ingredients:cats
-  }
-});
-  },
-  mounted () {
-    axios
-      .get('#')
-      .then(response => (this.info = response))
-  }
-  }
-})
-	</script>
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="js/functions.js"></script>	
+	<script src="js/functions.js"></script>
+
 </body>
 </html>

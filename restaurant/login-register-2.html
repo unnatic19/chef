@@ -103,11 +103,11 @@
 							<div class="tab-content clearfix" id="tab-login">
 								<div class="card nobottommargin">
 									<div class="card-body" style="padding: 40px;">
-										<form  id="app" @submit="checkForm" action="menu.html" method="post" novalidate="true">
+										<form  id="app" @submit="checkForm"  novalidate="true">
 
 											<h3>Login to your Account</h3>
 											<p v-if="errors.length">
-												<b>Please correct the following error(s):</b>
+											
 												<ul>
 												  <li v-for="error in errors">{{ error }}</li>
 												</ul>
@@ -162,25 +162,40 @@
 			  } else if(!this.validPassword(this.password)) {
 				this.errors.push("Valid Password required.");        
 			  }
-			  if(!this.errors.length) return true;
+			  if(!this.errors.length) {
+				this.postCall(this.username,this.password)
+			  };
 			  e.preventDefault();
 			},
 			validPassword:function(password) {
 			  var re = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 			return re.test(password);
-			},
-			mounted () {
-		axios({
-  	method: 'post',
-  	url: '#',
-  	data: {
-    	username: username,
-    	password: password
-  }
+			},postCall:function(username,password){
+				axios.post(' http://0.0.0.0:3000/login', {
+	
+	
+	"Username":username,
+	"Password":password
+	
+    }, {
+      headers: {
+        'Access-Control-Allow-Origin':'*'  ,                                                                                                                                                                                                   
+  'Access-Control-Allow-Credentials': 'true' 
+	  }     
+
+})
+.then((response) => {
+	if(response.status == 200){
+		window.location.href ="menu.html";
+	}
+  console.log(response);
+}, (error) => {
+  console.log(error);
 });
+			}
+
   }
-		  }
-		})
+		  })
 		
 			</script>
 		
