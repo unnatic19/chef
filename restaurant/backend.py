@@ -11,7 +11,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel 
 import math
 from collections import Counter
-from flask_cors	import CORS
+from flask_cors import CORS
+
 ############Find recommendations########################
 ds = pd.read_csv("chef_102.csv")
 tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english')
@@ -32,15 +33,13 @@ def item(Ingredients):
 	return lis
 def recommend(Ing, num):
 	rec_book=[]
-	#print("Recommending " + str(num) + " products similar to " + str(item(Ing)) + "...")   
-	#print("-------")   
 	recs = results[Ing][:num]   
 	for rec in recs: 
-		#print("Recommended: " + str(item(rec[1])) + " (score:" +      str(rec[0]) + ")")
 		rec_book.append(item(rec[1]))
 	return rec_book
 ########################################################
 def counter_cosine_similarity(c1, c2):
+    #print(c2)
     terms = set(c1).union(c2)
     dotprod = sum(c1.get(k, 0) * c2.get(k, 0) for k in terms)
     magA = math.sqrt(sum(c1.get(k, 0)**2 for k in terms))
@@ -56,7 +55,8 @@ cur.execute("CREATE TABLE IF NOT EXISTS users(User_id INTEGER PRIMARY KEY NOT NU
 con.commit()
 
 app=Flask(__name__)
-cors = CORS(app)
+cors=CORS(app)
+
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -147,11 +147,54 @@ def profile():
 				return jsonify(
 					User_id=User_id,
 					Username=usr_name,
-					message="NO_BOOKMARKS_PRESENT"
+					message="NO_BOOKMARKS_PRESENT",
+					no_of_bookmarks=0
+					)
+
+			bookmarks=cur_lis[1].split(',')
+			all_rec=[]##########
+			for rec_id in bookmarks:
+				rec_dets=ds.loc[ds['Recipe_id']==int(rec_id)][['Recipe_id','Recipe_name','Recipe_url','Recipe_image','Ingredients']].values.tolist()[0]
+				ing_lis=rec_dets[-1]
+				rec_dets[-1]=rec_dets[-1].split("+")####change it to , for book1
+				all_rec.append(rec_dets)
+				
+
+			return jsonify(
+				User_id=User_id,
+				Username=usr_name,
+				Bookmarks=all_rec,
+				message="BOOKMARKS_PRESENT",
+				no_of_bookmarks=len(bookmarks)
+				),200
+	except Exception as e:
+		#return e
+		return jsonify(message="USER_ID_DOESNT_EXIST"),404
+
+
+@app.route("/main_rec",methods=["POST"])
+def main_rec():
+	User_id=request.get_json()['User_id']
+	try:
+		with sqlite3.connect("database.db") as con:
+			cur=con.cursor()
+			cur.execute("SELECT Username,Bookmark FROM users WHERE User_id="+str(User_id))
+			cur_lis=list(cur.fetchone())
+			
+			usr_name=cur_lis[0]####
+			if(cur_lis[1]==None):
+				all_rec_bookmarks_top=[]
+				for i in range(1,7):
+					rec_dets=ds.loc[ds['Recipe_id']==i][['Recipe_id','Recipe_name','Recipe_url','Recipe_image','Ingredients']].values.tolist()[0]
+					rec_dets[-1]=rec_dets[-1].split("+")
+					all_rec_bookmarks_top.append(rec_dets)
+				return jsonify(
+					User_id=User_id,
+					Username=usr_name,
+					Recommendation=all_rec_bookmarks_top
 					)
 			bookmarks=cur_lis[1].split(',')
-			#print(len(bookmarks))
-			#print(bookmarks)
+			
 			all_rec=[]##########
 			all_rec_bookmarks=[]
 			for rec_id in bookmarks:
@@ -159,34 +202,37 @@ def profile():
 				ing_lis=rec_dets[-1]
 				rec_dets[-1]=rec_dets[-1].split("+")####change it to , for book1
 				all_rec.append(rec_dets)
-
-				rec_for_bookmarks=recommend(Ing=ing_lis,num=5)
-				all_rec_bookmarks.append(rec_for_bookmarks)
+				all_rec_bookmarks=all_rec_bookmarks+recommend(Ing=ing_lis,num=5)
 
 			random.shuffle(all_rec_bookmarks)
-			all_rec_bookmarks_top_5=all_rec_bookmarks[:5]#####
+			all_rec_bookmarks_top=[]
+			for i in all_rec_bookmarks:
+				if(i not in all_rec_bookmarks_top):
+					all_rec_bookmarks_top.append(i)
 
 			return jsonify(
 				User_id=User_id,
 				Username=usr_name,
-				Bookmarks=all_rec,
-				Recommendation=all_rec_bookmarks_top_5,
-				message="BOOKMARKS_PRESENT"
+				Recommendation=all_rec_bookmarks_top[:6],
 				),200
 	except Exception as e:
+		#return e
 		return jsonify(message="USER_ID_DOESNT_EXIST"),404
+
 
 @app.route("/ingredients",methods=["POST"])
 def ingredients():
 	ingredients_str=request.get_json()['Ingredients']
 	ingredients_lis=list(set(ingredients_str.split(',')))
 	lis=ds.values.tolist()
+	lis.sort()
+
 
 	for row in lis:
-		score=counter_cosine_similarity(Counter(ingredients_lis),Counter(row[-1].split('+')))#######change , to +
+		score=counter_cosine_similarity(Counter(ingredients_lis),Counter(sorted(list(map(lambda x:x.lower(),row[-1].split('+'))))))#######change , to +
 		row.append(score)
 
-	rec_top_rec=sorted(lis,key=lambda x:x[-1],reverse=True)[:15]
+	rec_top_rec=sorted(lis,key=lambda x:x[-1],reverse=True)[:8]
 
 	return jsonify(
 		Top_recommendations=rec_top_rec
@@ -200,4 +246,4 @@ def ingredients():
 
 
 if __name__=="__main__":
-	app.run(host="0.0.0.0",port = "3000",debug=True)
+	app.run(host="0.0.0.0",port=3000,debug=True)

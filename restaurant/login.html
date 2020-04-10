@@ -106,6 +106,9 @@
 										<form  id="app" @submit="checkForm"  novalidate="true">
 
 											<h3>Login to your Account</h3>
+											<div>
+											
+											</div>
 											<p v-if="errors.length">
 											
 												<ul>
@@ -150,7 +153,8 @@
 		  data:{
 			errors:[],
 			username:null,
-			password:null
+			password:null,
+			userid:null,
 		  },
 		  methods:{
 			checkForm:function(e) {
@@ -163,7 +167,9 @@
 				this.errors.push("Valid Password required.");        
 			  }
 			  if(!this.errors.length) {
-				this.postCall(this.username,this.password)
+				this.postCall(this.username,this.password,this.profileData);
+				localStorage.setItem('username',this.username);
+				
 			  };
 			  e.preventDefault();
 			},
@@ -172,8 +178,6 @@
 			return re.test(password);
 			},postCall:function(username,password){
 				axios.post(' http://0.0.0.0:3000/login', {
-	
-	
 	"Username":username,
 	"Password":password
 	
@@ -186,13 +190,17 @@
 })
 .then((response) => {
 	if(response.status == 200){
-		window.location.href ="menu.html";
+	
+		const json = response.data;
+     this.userid = (json.User_id);
+	 localStorage.setItem('userid',this.userid);
+	 window.location.href ="home.html";
 	}
   console.log(response);
 }, (error) => {
   console.log(error);
 });
-			}
+			}		
 
   }
 		  })
