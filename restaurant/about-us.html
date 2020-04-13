@@ -148,95 +148,49 @@
 					</div>
 
 					<div class="line mt-5"></div>
-				</div>
+				
+					
 
 				<div class="section nomargin nobg notoppadding">
 					<div class="container clearfix">
-						<div class="heading-block bottommargin-sm nobottomborder">
+						<div class="heading-block bottommargin-sm nobottomborder" id = "chef">
 							<h3 class="nott font-secondary ls0" style="font-size: 52px; line-height: 1.3;">CHEF is all about giving out quality recipies amateur cooks all around the world. You pick the Ingredients and we give you all possible dishes to make.Let's together make you the masterchef you wanted to be.CHEERS!</h3>
 						</div>
 
 					</div>
 				</div>
 
-				<div class="section topmargin-sm nobottommargin" style="padding: 80px 0; background: #F5F5F5 url('images/food-pattern.png') repeat center center;">
-					<div class="container clearfix">
-
-						<div class="heading-block center nobottomborder">
-							<h3 class="nott font-secondary ls0" style="font-size: 60px; line-height: 1.3;">Signature Dishes</h3>
-						</div>
-
-						<div class="row clearfix">
-
-							<div class="col-lg-3 col-md-6">
-								<div class="team">
-									<div class="team-image imagescalein">
-										<a href="#"><img src="images/chefs/1.jpg" ></a>
-									</div>
-									<div class="team-desc tleft">
-										<div class="team-title">
-											<h4 class="font-primary t400 ls2"><a  class="text-dark">Pancakes with Alsa</a></h4>
-											<span>Dish Decsription</span>
-										</div>
-										<p>Original pancake recipe pancakes in the shape of a heart with Alsa vanilla sugar!</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-3 col-md-6">
-								<div class="team">
-									<div class="team-image imagescalein">
-										<img src="images/chefs/2.jpg">
-									</div>
-									<div class="team-desc tleft">
-										<div class="team-title">
-											<h4 class="font-primary t400 ls2"><a  class="text-dark">CREAMY POLENTA</a></h4>
-											<span>Dish Decsription</span>
-										</div>
-										<p>A polenta with mushrooms and burrata add a drizzle of olive oil and milk at the end of cooking.</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-3 col-md-6">
-								<div class="team">
-									<div class="team-image imagescalein">
-										<img src="images/chefs/3.jpg" >
-									</div>
-									<div class="team-desc tleft">
-										<div class="team-title">
-											<h4 class="font-primary t400 ls2"><a  class="text-dark">winter salad</a></h4>
-											<span>Dish Decsription</span>
-										</div>
-										<p>In the winter salad there is roasted sweet potato with fresh apple,caramelized nuts and Roquefort, all on rocket.</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-3 col-md-6">
-								<div class="team">
-									<div class="team-image imagescalein">
-										<img src="images/chefs/4.jpg" >
-									</div>
-									<div class="team-desc tleft">
-										<div class="team-title">
-											<h4 class="font-primary t400 ls2"><a  class="text-dark">Tajarin</a></h4>
-											<span>Dish Decsription</span>
-										</div>
-										<p>Tajarin are durum wheat pasta with fresh eggs. These typically Piedmontese pasta go perfectly with Alba's white truffle. </p>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
 
 		</section><!-- #content end -->
 
 
 	</div><!-- #wrapper end -->
-
+	<script>
+		xhr=new XMLHttpRequest();
+		scrollAmt=500;
+		count=0;
+		function getChunk(){
+			scroll=document.body.scrollTop||document.documentElement.scrollTop;
+			if(scroll>scrollAmt){
+				scrollAmt=scroll;
+				xhr.onreadystatechange=showChunk;
+				xhr.open("GET","http://127.0.0.1:8080/getChunk.php?count="+count++,true);
+				xhr.send();
+			}
+		}
+		function showChunk(){
+		console.log(xhr.status)
+			if(xhr.readyState==4 && xhr.status==200){
+			console.log("hello");
+				document.getElementById("chef").innerHTML+=xhr.responseText;
+						
+			
+			}
+			
+		
+		}
+		window.onscroll=getChunk;
+	</script>
 
 	<!-- External JavaScripts
 	============================================= -->

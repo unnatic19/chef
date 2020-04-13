@@ -39,12 +39,17 @@ def recommend(Ing, num):
 	return rec_book
 ########################################################
 def counter_cosine_similarity(c1, c2):
-    #print(c2)
+	''' #print(c2)
     terms = set(c1).union(c2)
     dotprod = sum(c1.get(k, 0) * c2.get(k, 0) for k in terms)
     magA = math.sqrt(sum(c1.get(k, 0)**2 for k in terms))
     magB = math.sqrt(sum(c2.get(k, 0)**2 for k in terms))
-    return dotprod / (magA * magB)
+    return dotprod / (magA * magB)'''
+	count=0
+	for item in c1:
+		if(item in c2):
+			count=count+1
+	return count
 
 con = sqlite3.connect("database.db")
 
@@ -202,7 +207,7 @@ def main_rec():
 				ing_lis=rec_dets[-1]
 				rec_dets[-1]=rec_dets[-1].split("+")####change it to , for book1
 				all_rec.append(rec_dets)
-				all_rec_bookmarks=all_rec_bookmarks+recommend(Ing=ing_lis,num=5)
+				all_rec_bookmarks=all_rec_bookmarks+recommend(Ing=ing_lis,num=10)
 
 			random.shuffle(all_rec_bookmarks)
 			all_rec_bookmarks_top=[]
@@ -229,7 +234,8 @@ def ingredients():
 
 
 	for row in lis:
-		score=counter_cosine_similarity(Counter(ingredients_lis),Counter(sorted(list(map(lambda x:x.lower(),row[-1].split('+'))))))#######change , to +
+		score=counter_cosine_similarity(ingredients_lis,sorted(list(map(lambda x:x.lower().strip(),row[-1].split('+')))))
+		#score=counter_cosine_similarity(Counter(ingredients_lis),Counter(sorted(list(map(lambda x:x.lower().strip(),row[-1].split('+'))))))#######change , to +
 		row.append(score)
 
 	rec_top_rec=sorted(lis,key=lambda x:x[-1],reverse=True)[:8]
@@ -246,4 +252,4 @@ def ingredients():
 
 
 if __name__=="__main__":
-	app.run(host="0.0.0.0",port=3000,debug=True)
+	app.run(host="0.0.0.0",port='3000',debug=True)
