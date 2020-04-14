@@ -70,7 +70,7 @@
 
 						<ul>
 							<li><a href="bookmark.html"><div>Bookmark</div></a></li>
-							<li><a href="login.html"><div>Log OUT</div></a></li>
+							<li><a onclick="logout()" href="login.html"><div>Log OUT</div></a></li>
 						</ul>
 
 					</nav><!-- #primary-menu end -->
@@ -436,6 +436,11 @@
 		  })
 		
 			</script>
+			 <script>
+				function logout(e) {
+					localStorage.clear()
+				}
+				</script>
 	<!-- External JavaScripts
 	============================================= -->
 	<script src="js/jquery.js"></script>

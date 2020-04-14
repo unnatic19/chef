@@ -73,7 +73,7 @@
 	
 							<ul>
 								
-								<li><a href="login.html"><div>SignOut</div></a></li>
+								<li><a onclick="logout()" href="login.html"><div>SignOut</div></a></li>
 							</ul>
 	
 						</nav><!-- #primary-menu end -->
@@ -208,7 +208,6 @@
                 </div>
             </div>
 
-				
 
 			
 
@@ -295,7 +294,12 @@ console.log(this.recm);
             
                 </script>
 		
-
+				
+        <script>
+            function logout(e) {
+                localStorage.clear()
+            }
+            </script>
 	<!-- External JavaScripts
 	============================================= -->
 	<script src="js/jquery.js"></script>

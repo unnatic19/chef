@@ -85,7 +85,7 @@
 
                         <ul>
 
-                            <li><a href="login.html">
+                            <li><a onclick="logout()" href="login.html">
                                     <div>SignOut</div>
                                 </a></li>
                         </ul>
@@ -622,7 +622,12 @@ if(this.number == 6){
             }
 		  })
 		
-			</script>
+            </script>
+             <script>
+                function logout(e) {
+                    localStorage.clear()
+                }
+                </script>
 <!-- External JavaScripts
 	============================================= -->
 <script src="js/jquery.js"></script>
