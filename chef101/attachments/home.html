@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Cookie|Open+Sans:400,600,700,800,900|Poppins:300,400,500,600,700|Playfair+Display:400,400i,700,700i,900" rel="stylesheet">
+	<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="animate.css" type="text/css" />
+	<link rel="stylesheet" href="fonts.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="colors.php?color=e7272d" type="text/css" />
+	<title>Home</title>
+
+</head>
+<script type="text/javascript">
+    var username= localStorage.getItem('username');
+
+   </script>
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						
+						<a href="about-us.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="with-arrows clearfix">
+
+							<ul>
+							
+								<li><a href="about-us.html"><div>About</div></a></li>
+                                <li><a href="makefood.html"><div>MakeFood</div></a></li>
+                                <li><a href="bookmark.html"><div>BOOKMARKS</div></a></li>
+							</ul>
+	
+							<ul>
+								
+                                <li><a onclick="logout()" href="login.html"><div>SignOut</div></a></li>
+							</ul>
+	
+						</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Page Title
+		============================================= -->
+		<section id="page-title">
+
+			<div class="container clearfix">
+                    <h3 class="nott font-secondary ls0" style="font-size: 52px; line-height: 1.3;"> Hey <script type="text/javascript">
+                        document.write(username)
+                      </script>
+                      What's Cookin?
+                       </h3>
+				
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+        <section id="page-title" class="page-title-parallax page-title-center border-bottom" style="background-image: url('images/sections/6.jpg'); background-size: 100% auto;" data-center="background-position:100% 100px;" data-top-bottom="background-position:100% -200px;">
+
+			<div class="container clearfix">
+				<h1 class="font-secondary capitalize ls0" style="font-size: 62px;">Our Recommendations</h1>
+			</div>
+
+		</section><!-- #page-title end -->
+</body>
+		
+		<!-- Content
+		============================================= -->
+		<section  id="app" style="overflow: visible;">
+
+			<div class="content-wrap nobottompadding">
+				<div class="container clearfix">
+                        
+					<div class="row clearfix">
+                        
+                            <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                    <div class="ipost clearfix">
+                                        <div class="entry">
+                                            <div class="entry-image nobottommargin">
+                                                <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg1" alt="Image 1"></a>
+                                            </div>
+                                            <div class="entry-title">
+                                                <div class="clear"></div>
+                                                <h2 class="nobottommargin"><a v-bind:href="disheUrl1">{{disheName1}}</a></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                        <div class="ipost clearfix">
+                                            <div class="entry">
+                                                <div class="entry-image nobottommargin">
+                                                    <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg2" alt="Image 2"></a>
+                                                </div>
+                                                <div class="entry-title">
+                                                   
+                                                    <div class="clear"></div>
+                                                    <h2 class="nobottommargin"><a v-bind:href="disheUrl2">{{disheName2}}</a></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                            <div class="ipost clearfix">
+                                                <div class="entry">
+                                                    <div class="entry-image nobottommargin">
+                                                        <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg3"alt="Image 3"></a>
+                                                    </div>
+                                                    <div class="entry-title">
+                                                        
+                                                        <div class="clear"></div>
+                                                        <h2 class="nobottommargin"><a v-bind:href="disheUrl3">{{disheName3}}</a></h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                                <div class="ipost clearfix">
+                                                    <div class="entry">
+                                                        <div class="entry-image nobottommargin">
+                                                            <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg4"alt="Image 4"></a>
+                                                        </div>
+                                                        <div class="entry-title">
+                                                           
+                                                            <div class="clear"></div>
+                                                            <h2 class="nobottommargin"><a v-bind:href="disheUrl4">{{disheName4}}</a></h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                                <div class="ipost clearfix">
+                                                    <div class="entry">
+                                                        <div class="entry-image nobottommargin">
+                                                            <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg5"alt="Image 5"></a>
+                                                        </div>
+                                                        <div class="entry-title">
+                                                                
+                                                            <div class="clear"></div>
+                                                            <h2 class="nobottommargin"><a v-bind:href="disheUrl5">{{disheName5}}</a></h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+											</div>
+												
+                                        <div class="col-lg-4 col-sm-6 bottommargin-sm">
+                                                <div class="ipost clearfix">
+                                                    <div class="entry">
+                                                        <div class="entry-image nobottommargin">
+                                                            <a  data-lightbox="image"><img class="image_fade" v-bind:src="disheImg6" alt="Image 6"></a>
+                                                        </div>
+                                                        <div class="entry-title">
+                                                                   
+                                                            <div class="clear"></div>
+                                                            <h2 class="nobottommargin"><a v-bind:href="disheUrl6">{{disheName6}}</a></h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                   
+                    </div>
+                </div>
+            </div>
+
+				
+
+			
+
+		</section><!-- #content end -->
+		<script type="text/javascript">
+            const app = new Vue({
+              el:'#app',
+              data:{
+                recm:[],
+                disheName1:null,
+                disheName2:null,
+                disheName3:null,
+                disheName4:null,
+                disheName5:null,
+                disheName6:null,
+                disheUrl1:null,
+                disheUrl2:null,
+                disheUrl3:null,
+                disheUrl4:null,
+                disheUrl5:null,
+                disheUrl6:null,
+                disheImg1:null,
+                disheImg2:null,
+                disheImg3:null,
+                disheImg4:null,
+                disheImg5:null,
+                disheImg6:null,
+              
+              },
+              methods:{
+               
+			postRecommendations:function(userid){
+				axios.post('http://0.0.0.0:3000/main_rec', {
+	"User_id":userid
+	
+	
+    }, {
+      headers: {
+        'Access-Control-Allow-Origin':'*'  ,                                                                                                                                                                                                   
+  'Access-Control-Allow-Credentials': 'true' 
+	  }     
+
+})
+.then((response) => {
+	if(response.status == 200){
+	
+	const json2 = response.data;
+   
+	this.recm .push (json2.Recommendation);
+
+console.log(this.recm);
+        this.disheImg1 = this.recm[0][0][3];
+		this.disheUrl1 = this.recm[0][0][2];
+		this.disheName1 = this.recm[0][0][1];
+		this.disheImg2 = this.recm[0][1][3];
+		this.disheUrl2 = this.recm[0][1][2];
+		this.disheName2 = this.recm[0][1][1];
+		this.disheImg3 = this.recm[0][2][3];
+		this.disheUrl3 = this.recm[0][2][2];
+		this.disheName3 = this.recm[0][2][1];
+		this.disheImg4 = this.recm[0][3][3];
+		this.disheUrl4 = this.recm[0][3][2];
+		this.disheName4 = this.recm[0][3][1];
+		this.disheImg5 = this.recm[0][4][3];
+		this.disheUrl5 = this.recm[0][4][2];
+		this.disheName5 = this.recm[0][4][1];
+		this.disheImg6 = this.recm[0][5][3];
+		this.disheUrl6 = this.recm[0][5][2];
+		this.disheName6 = this.recm[0][5][1];
+	
+    }	
+  console.log(response);
+}, (error) => {
+  console.log(error);
+});
+	
+}
+           
+      },beforeMount(){
+          var userid = localStorage.getItem('userid');
+                    this.postRecommendations(userid);
+                }
+              })
+            
+                </script>
+		 <script>
+            function logout(e) {
+                localStorage.clear()
+            }
+            </script>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+</body>
+</html>

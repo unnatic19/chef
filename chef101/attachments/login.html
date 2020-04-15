@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Cookie|Open+Sans:400,600,700,800,900|Poppins:300,400,500,600,700|Playfair+Display:400,400i,700,700i,900" rel="stylesheet">
+	<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="animate.css" type="text/css" />
+	<link rel="stylesheet" href="fonts.css" type="text/css" />
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="colors.php?color=e7272d" type="text/css" />
+	<title>Login - Register</title>
+
+</head>
+
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						
+						<a href="about-us.html" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+						<ul>
+							<li><a href="signup.html"><div>SIGN UP</div></a></li>
+						</ul>
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Page Title
+		============================================= -->
+		<section id="page-title">
+
+			<div class="container clearfix">
+				<h1>My Account</h1>
+				
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap">
+
+				<div class="container clearfix">
+
+					<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+
+						<ul class="tab-nav tab-nav2 center clearfix">
+							<li class="inline-block"><a href="#tab-login">Login</a></li>
+							
+						</ul>
+
+						<div class="tab-container">
+
+							<div class="tab-content clearfix" id="tab-login">
+								<div class="card nobottommargin">
+									<div class="card-body" style="padding: 40px;">
+										<form  id="app" @submit="checkForm"  novalidate="true">
+
+											<h3>Login to your Account</h3>
+											<div>
+											
+											</div>
+											<p v-if="errors.length">
+											
+												<ul>
+												  <li v-for="error in errors">{{ error }}</li>
+												</ul>
+											  </p>
+											  
+											<div class="col_full">
+												<label for="login-form-username" >Username:</label>
+												<input type="text" name="username" id="username" v-model="username" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="login-form-password">Password:</label>
+												<input type="password" name="password" id="password" v-model="password" class="form-control" />
+											</div>
+
+											<div class="col_full nobottommargin">
+												<button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+												
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+
+							
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+		<script>
+		const app = new Vue({
+		  el:'#app',
+		  data:{
+			errors:[],
+			username:null,
+			password:null,
+			userid:null,
+		  },
+		  methods:{
+			checkForm:function(e) {
+			  this.errors = [];
+			  
+			  if(!this.username) this.errors.push("Name required.");
+			  if(!this.password) {
+				this.errors.push("Password required.");
+			  } else if(!this.validPassword(this.password)) {
+				this.errors.push("Valid Password required.");        
+			  }
+			  if(!this.errors.length) {
+				this.postCall(this.username,this.password,this.profileData);
+				localStorage.setItem('username',this.username);
+				
+			  };
+			  e.preventDefault();
+			},
+			validPassword:function(password) {
+			  var re = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+			return re.test(password);
+			},postCall:function(username,password){
+				axios.post(' http://0.0.0.0:3000/login', {
+	"Username":username,
+	"Password":password
+	
+    }, {
+      headers: {
+        'Access-Control-Allow-Origin':'*'  ,                                                                                                                                                                                                   
+  'Access-Control-Allow-Credentials': 'true' 
+	  }     
+
+})
+.then((response) => {
+	if(response.status == 200){
+	
+		const json = response.data;
+     this.userid = (json.User_id);
+	 localStorage.setItem('userid',this.userid);
+	 window.location.href ="home.html";
+	}
+  console.log(response);
+}, (error) => {
+  console.log(error);
+});
+			}		
+
+  }
+		  })
+		
+			</script>
+		
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="js/jquery.js"></script>
+	<script src="js/plugins.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="js/functions.js"></script>
+
+</body>
+</html>
